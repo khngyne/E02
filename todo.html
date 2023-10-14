@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+}
+
+.todo-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 10px solid #f3b7b7;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+h1 {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 8px;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+}
+
+button.delete-button {
+    background-color: #dc3545;
+}
+
+    </style>
+    <div class="todo-container">
+        <h1>TODO List</h1>
+        <input type="text" id="task-input" placeholder="Add a new task">
+        <button id="add-button">Add</button>
+        <ul id="task-list"></ul>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const taskInput = document.getElementById("task-input");
+    const addButton = document.getElementById("add-button");
+    const taskList = document.getElementById("task-list");
+
+    addButton.addEventListener("click", function () {
+        const taskText = taskInput.value.trim();
+        if (taskText !== "") {
+            addTask(taskText);
+            taskInput.value = "";
+        }
+    });
+
+    taskInput.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+            addButton.click();
+        }
+    });
+
+    function addTask(taskText) {
+        const taskItem = document.createElement("li");
+        taskItem.innerHTML = `
+            <span class="task-text">${taskText}</span>
+            <button class="edit-button">Edit</button>
+            <button class="delete-button">Delete</button>
+            <button class="status-button">Mark as Done</button>
+        `;
+        taskList.appendChild(taskItem);
+
+        const editButton = taskItem.querySelector(".edit-button");
+        editButton.addEventListener("click", function () {
+            editTask(taskItem);
+        });
+
+        const deleteButton = taskItem.querySelector(".delete-button");
+        deleteButton.addEventListener("click", function () {
+            taskList.removeChild(taskItem);
+        });
+
+        const statusButton = taskItem.querySelector(".status-button");
+        statusButton.addEventListener("click", function () {
+            toggleStatus(taskItem);
+        });
+    }
+
+    function editTask(taskItem) {
+        const taskText = taskItem.querySelector(".task-text").textContent;
+        const newText = prompt("Edit task:", taskText);
+        if (newText !== null) {
+            taskItem.querySelector(".task-text").textContent = newText;
+        }
+    }
+
+    function toggleStatus(taskItem) {
+        const statusButton = taskItem.querySelector(".status-button");
+        const taskText = taskItem.querySelector(".task-text");
+
+        if (taskText.classList.contains("done")) {
+            taskText.classList.remove("done");
+            statusButton.textContent = "Mark as Done";
+        } else {
+            taskText.classList.add("done");
+            statusButton.textContent = "Mark as Undone";
+        }
+    }
+});
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const taskInput = document.getElementById("task-input");
+    const addButton = document.getElementById("add-button");
+    const taskList = document.getElementById("task-list");
+
+    addButton.addEventListener("click", function () {
+        const taskText = taskInput.value.trim();
+        if (taskText !== "") {
+            addTask(taskText);
+            taskInput.value = "";
+        }
+    });
+
+    taskInput.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+            addButton.click();
+        }
+    });
+
+    function addTask(taskText) {
+        const taskItem = document.createElement("li");
+        taskItem.innerHTML = `
+            <span class="task-text">${taskText}</span>
+            <button class="edit-button">Edit</button>
+            <button class="delete-button">Delete</button>
+        `;
+        taskList.appendChild(taskItem);
+
+        const editButton = taskItem.querySelector(".edit-button");
+        editButton.addEventListener("click", function () {
+            editTask(taskItem);
+        });
+
+        const deleteButton = taskItem.querySelector(".delete-button");
+        deleteButton.addEventListener("click", function () {
+            taskList.removeChild(taskItem);
+        });
+    }
+
+    function editTask(taskItem) {
+        const taskText = taskItem.querySelector(".task-text").textContent;
+        const newText = prompt("Edit task:", taskText);
+        if (newText !== null) {
+            taskItem.querySelector(".task-text").textContent = newText;
+        }
+    }
+});
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const taskInput = document.getElementById("task-input");
+        const addButton = document.getElementById("add-button");
+        const taskList = document.getElementById("task-list");
+    
+        addButton.addEventListener("click", function () {
+            const taskText = taskInput.value.trim();
+            if (taskText !== "") {
+                addTask(taskText);
+                taskInput.value = "";
+            }
+        });
+    
+        taskInput.addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                addButton.click();
+            }
+        });
+    
+        function addTask(taskText) {
+            const taskItem = document.createElement("li");
+            taskItem.innerHTML = `
+                ${taskText}
+                <button class="delete-button">Delete</button>
+            `;
+            taskList.appendChild(taskItem);
+    
+            const deleteButton = taskItem.querySelector(".delete-button");
+            deleteButton.addEventListener("click", function () {
+                taskList.removeChild(taskItem);
+            });
+        }
+    });
+    
+    </script>
+</body>
+
+
+</html>
